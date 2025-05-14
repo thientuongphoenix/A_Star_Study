@@ -46,17 +46,6 @@ public class Astar_Manager : MonoBehaviour
         PointNode agentNode = _pointGrid.GetPointNodeFromGridByPosition(request.startNode);
         PointNode targetNode = _pointGrid.GetPointNodeFromGridByPosition(request.targetNode);
 
-        
-
-        if (targetNode==null)
-        {
-            return ;
-        }
-
-
-        
-
-
 
         openList.Add(agentNode);
         
@@ -66,12 +55,7 @@ public class Astar_Manager : MonoBehaviour
 
             PointNode currentNode = openList.Pop();
 
-            if (currentNode == null)
-            {
-
-                return ;
-
-            }
+            
 
             //Check If Reach The Goal 
             if (_pointGrid.CheckIfPointsLinkedTogether(currentNode, targetNode))
@@ -138,6 +122,8 @@ public class Astar_Manager : MonoBehaviour
         // Create The Path 
         Vector3[] path = CreatePath(agentNode, targetNode);
 
+        
+
 
         //Create Response To Call Back it 
         PathResponse pathResponse = new PathResponse(path, true, request.callBack);
@@ -170,10 +156,13 @@ public class Astar_Manager : MonoBehaviour
         List<PointNode> pathNode = new List<PointNode>();
 
         PointNode currentNode = _targetNode;
-       
+
         while (currentNode != _agentNode)
         {
-
+            if (currentNode == null)
+            {
+                return null;
+            }
             pathNode.Add(currentNode);
 
             currentNode = currentNode.parent;
@@ -195,8 +184,6 @@ public class Astar_Manager : MonoBehaviour
         return path;
 
     }
-
- 
     
 
 }

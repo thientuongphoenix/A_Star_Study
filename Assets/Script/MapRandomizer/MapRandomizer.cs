@@ -7,6 +7,7 @@ public class MapRandomizer : MonoBehaviour
     [SerializeField] protected Transform mapArea;
     [SerializeField] protected int numberOfWalls = 10;
     [SerializeField] protected Vector2 mapSize = new Vector2(25, 20);
+    [SerializeField] protected PointGrid pointGrid;
 
     private GameObject[] currentWalls;
 
@@ -34,5 +35,13 @@ public class MapRandomizer : MonoBehaviour
             GameObject wall = Instantiate(prefab, position, rotation, mapArea);
             currentWalls[i] = wall;
         }
+
+        UpdatePointGrid();
+    }
+
+    protected virtual void UpdatePointGrid()
+    {
+        this.pointGrid = Object.FindAnyObjectByType<PointGrid>();
+        this.pointGrid.Generategrid();
     }
 }
