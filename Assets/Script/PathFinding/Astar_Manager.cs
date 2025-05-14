@@ -46,6 +46,14 @@ public class Astar_Manager : MonoBehaviour
         PointNode agentNode = _pointGrid.GetPointNodeFromGridByPosition(request.startNode);
         PointNode targetNode = _pointGrid.GetPointNodeFromGridByPosition(request.targetNode);
 
+        if (agentNode == null)
+        {
+            return;
+        }
+        if (targetNode == null)
+        {
+            return;
+        }
 
         openList.Add(agentNode);
         
@@ -143,9 +151,11 @@ public class Astar_Manager : MonoBehaviour
     //Calculate The Cost from current node  To target node 
     float CalculateMovementCostToTargetNode(PointNode _node, PointNode _targetNode)
     {
-
+        if (_node == null || _targetNode == null)
+        {
+            return float.MaxValue;
+        }
         return Vector3.Distance(_node.position, _targetNode.position);
-
     }
 
 
